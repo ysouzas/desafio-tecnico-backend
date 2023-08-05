@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B.Models", "src\shared\B.Mo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{4A95C478-915F-4A7B-8B01-FC0C14FE7F07}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{56459B46-E6FC-4B27-A566-CA4D36C60BC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B.API", "src\services\B.API\B.API.csproj", "{5A7DE02B-1827-411B-AF75-845C0B262066}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,10 @@ Global
 		{196A31BE-DC9D-4D81-AF8C-296480AF5554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{196A31BE-DC9D-4D81-AF8C-296480AF5554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{196A31BE-DC9D-4D81-AF8C-296480AF5554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7DE02B-1827-411B-AF75-845C0B262066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7DE02B-1827-411B-AF75-845C0B262066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7DE02B-1827-411B-AF75-845C0B262066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7DE02B-1827-411B-AF75-845C0B262066}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,5 +34,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{196A31BE-DC9D-4D81-AF8C-296480AF5554} = {4A95C478-915F-4A7B-8B01-FC0C14FE7F07}
+		{5A7DE02B-1827-411B-AF75-845C0B262066} = {56459B46-E6FC-4B27-A566-CA4D36C60BC9}
 	EndGlobalSection
 EndGlobal
