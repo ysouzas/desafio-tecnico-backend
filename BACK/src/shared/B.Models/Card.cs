@@ -8,7 +8,15 @@ public class Card : Entity
     {
     }
 
-    public string Lista { get; set; }
+    public Card(string titulo, string conteudo, string lista)
+    {
+        Titulo = titulo;
+        Conteudo = conteudo;
+        Lista = lista;
+    }
 
+    public string Titulo { get; set; }
+    public string Conteudo { get; set; }
+    public string Lista { get; set; }
 }
 
