@@ -15,6 +15,14 @@ public class Card : Entity
         Lista = lista;
     }
 
+    public Card(Guid id, string titulo, string conteudo, string lista)
+    {
+        Id = id;
+        Titulo = titulo;
+        Conteudo = conteudo;
+        Lista = lista;
+    }
+
     public string Titulo { get; set; }
     public string Conteudo { get; set; }
     public string Lista { get; set; }

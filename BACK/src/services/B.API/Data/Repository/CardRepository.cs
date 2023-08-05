@@ -21,9 +21,24 @@ public class CardRepository : ICardRepository
         return await _context.Cards.AsNoTracking().ToListAsync();
     }
 
-    public async Task Add(Card card)
+    public async Task<Card> Add(Card card)
     {
-        await _context.Cards.AddAsync(card);
+        return (await _context.Cards.AddAsync(card)).Entity;
+    }
+
+    public async Task<Card> Update(Card card)
+    {
+        var cardFromDatabase = await _context.Cards.FirstOrDefaultAsync(c => c.Id == card.Id);
+
+        if (cardFromDatabase is null) return null;
+
+        cardFromDatabase.Conteudo = card.Conteudo;
+        cardFromDatabase.Lista = card.Lista;
+        cardFromDatabase.Titulo = card.Titulo;
+
+        var updatedCard = _context.Cards.Update(cardFromDatabase);
+
+        return updatedCard.Entity;
     }
 
     public Task Delete(Card card)
@@ -36,10 +51,7 @@ public class CardRepository : ICardRepository
         throw new NotImplementedException();
     }
 
-    public Task<Card> Update(Card card)
-    {
-        throw new NotImplementedException();
-    }
+
 
     public void Dispose() => _context.Dispose();
 }

@@ -1,36 +1,39 @@
 ﻿using B.API.DTOs;
 using B.Core.Messages;
 using FluentValidation;
-using FluentValidation.Results;
 
 namespace B.API.Application.Mediator.Commands;
 
-public class AddCardCommand : CommandWithResponse<CardDTO>
+public class UpdateCardCommand : CommandWithResponse<CardDTO>
 {
     public string Titulo { get; set; } = string.Empty;
     public string Conteudo { get; set; } = string.Empty;
     public string Lista { get; set; } = string.Empty;
 
+    public Guid Id { get; set; }
+    public Guid IdUrl { get; set; }
+
     public bool IsValid()
     {
-        ValidationResult = new AddCardValidation().Validate(this);
+        ValidationResult = new UpdateCardValidation().Validate(this);
         return ValidationResult.IsValid;
     }
 
-    public static AddCardCommand CreateFromDTO(AddCardDTO dto)
+    public static UpdateCardCommand CreateFromDTO(UpdateCardDTO dto, Guid idUrl)
     {
-        return new AddCardCommand()
+        return new UpdateCardCommand()
         {
             Titulo = dto.Titulo,
             Conteudo = dto.Conteudo,
             Lista = dto.Lista,
-
+            Id = dto.id,
+            IdUrl = idUrl,
         };
     }
 
-    public class AddCardValidation : AbstractValidator<AddCardCommand>
+    public class UpdateCardValidation : AbstractValidator<UpdateCardCommand>
     {
-        public AddCardValidation()
+        public UpdateCardValidation()
         {
             RuleFor(c => c.Titulo)
                 .NotEmpty()
@@ -43,7 +46,14 @@ public class AddCardCommand : CommandWithResponse<CardDTO>
             RuleFor(c => c.Lista)
                 .NotEmpty()
                 .WithMessage("Lista must be set");
+
+            RuleFor(c => c.Id)
+                .NotEmpty()
+                .WithMessage("Id must be set");
+
+            RuleFor(c => c.Id)
+                .Equal(c => c.IdUrl)
+                .WithMessage("Id and Id From url must be the same");
         }
     }
 }
-

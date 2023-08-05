@@ -11,7 +11,9 @@ using MediatR;
 namespace B.API.Application.Mediator.Handlers;
 
 public class CardCommandHandler : CommandHandler, IRequestHandler<GetAllCardQuery, CommandResponse<CardDTO[]>>,
-                                                  IRequestHandler<AddCardCommand, ValidationResult>
+                                                  IRequestHandler<AddCardCommand, CommandResponse<CardDTO>>,
+                                                  IRequestHandler<UpdateCardCommand, CommandResponse<CardDTO>>
+
 
 {
     private readonly ICardRepository _cardRepository;
@@ -30,15 +32,30 @@ public class CardCommandHandler : CommandHandler, IRequestHandler<GetAllCardQuer
         return CommandResponse<CardDTO[]>.Create(cardsDTO.ToArray());
     }
 
-    public async Task<ValidationResult> Handle(AddCardCommand request, CancellationToken cancellationToken)
+    public async Task<CommandResponse<CardDTO>> Handle(AddCardCommand request, CancellationToken cancellationToken)
     {
-        if (!request.IsValid()) return request.ValidationResult;
+        if (!request.IsValid()) return new(default, request.ValidationResult);
 
-        Card card = new(request.Titulo, request.Conteudo, request.Lista);
+        var card = new Card(request.Titulo, request.Conteudo, request.Lista);
 
-        await _cardRepository.Add(card);
+        var cardFromDatabase = await _cardRepository.Add(card);
 
-        return await PersistData(_cardRepository.UnitOfWork);
+        var result = await PersistData(_cardRepository.UnitOfWork);
+
+        return result.IsValid ? CommandResponse<CardDTO>.Create(cardFromDatabase.ToCardDTO()) : CommandResponse<CardDTO>.Create(default, result);
+    }
+
+    public async Task<CommandResponse<CardDTO>> Handle(UpdateCardCommand request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid()) return new(default, request.ValidationResult);
+
+        var card = new Card(request.Id, request.Titulo, request.Conteudo, request.Lista);
+
+        var cardFromDatabase = await _cardRepository.Update(card);
+
+        var result = await PersistData(_cardRepository.UnitOfWork);
+
+        return result.IsValid ? CommandResponse<CardDTO>.Create(cardFromDatabase.ToCardDTO()) : CommandResponse<CardDTO>.Create(default, result);
     }
 }
 

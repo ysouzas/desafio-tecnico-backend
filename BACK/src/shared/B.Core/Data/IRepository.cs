@@ -4,7 +4,7 @@ public interface IRepository<T> : IDisposable
 {
     IUnitOfWork UnitOfWork { get; }
 
-    Task Add(T card);
+    Task<T> Add(T card);
 
     Task<ICollection<T>> GetAll();
 

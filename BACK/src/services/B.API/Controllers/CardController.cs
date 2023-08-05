@@ -32,5 +32,22 @@ public class CardsController : MainController
 
         return CustomResponse(await _mediator.Send(command));
     }
+
+
+    [HttpPut("{id:Guid}")]
+    public async Task<IActionResult> Put(Guid id, UpdateCardDTO dto)
+    {
+        var command = UpdateCardCommand.CreateFromDTO(dto, id);
+
+        return CustomResponse(await _mediator.Send(command));
+    }
+
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> Post(Guid id)
+    {
+        var command = DeleteCardCommand.Create(id);
+
+        return CustomResponse(await _mediator.Send(command));
+    }
 }
 
