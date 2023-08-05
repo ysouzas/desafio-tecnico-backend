@@ -429,3 +429,4 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+BACK/src/services/B.API/appsettings.Development.json

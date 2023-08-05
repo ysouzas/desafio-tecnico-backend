@@ -1,4 +1,6 @@
 ﻿
+using B.API.Configuration;
+
 namespace B.API;
 
 public class Program
@@ -7,25 +9,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddApiConfiguration(builder.Configuration);
+        builder.Services.RegisterServices(builder.Configuration);
 
         var app = builder.Build();
 
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
-        app.UseAuthorization();
-
-
-        app.MapControllers();
-
+        app.UseApiConfiguration(app.Environment);
         app.Run();
     }
 }
