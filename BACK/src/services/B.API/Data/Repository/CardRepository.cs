@@ -31,13 +31,6 @@ public class CardRepository : ICardRepository
         throw new NotImplementedException();
     }
 
-    public void Dispose()
-    {
-        Dispose();
-    }
-
-
-
     public Task<Card> GetById(Guid id)
     {
         throw new NotImplementedException();
@@ -47,5 +40,7 @@ public class CardRepository : ICardRepository
     {
         throw new NotImplementedException();
     }
+
+    public void Dispose() => _context.Dispose();
 }
 
