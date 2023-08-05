@@ -6,6 +6,8 @@ public abstract class Entity
 
     public DateTimeOffset Created { get; set; }
 
+    public DateTimeOffset? Updated { get; set; }
+
     protected Entity()
     {
         Id = Guid.NewGuid();
