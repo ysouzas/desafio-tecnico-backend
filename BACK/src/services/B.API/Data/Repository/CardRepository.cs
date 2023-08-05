@@ -26,29 +26,21 @@ public class CardRepository : ICardRepository
         return (await _context.Cards.AddAsync(card)).Entity;
     }
 
-    public async Task<Card> Update(Card card)
+    public Card Update(Card card)
     {
-        var cardFromDatabase = await _context.Cards.FirstOrDefaultAsync(c => c.Id == card.Id);
-
-        if (cardFromDatabase is null) return null;
-
-        cardFromDatabase.Conteudo = card.Conteudo;
-        cardFromDatabase.Lista = card.Lista;
-        cardFromDatabase.Titulo = card.Titulo;
-
-        var updatedCard = _context.Cards.Update(cardFromDatabase);
+        var updatedCard = _context.Cards.Update(card);
 
         return updatedCard.Entity;
     }
 
-    public Task Delete(Card card)
+    public async Task Delete(Card card)
     {
-        throw new NotImplementedException();
+        _context.Cards.Remove(card);
     }
 
-    public Task<Card> GetById(Guid id)
+    public async Task<Card> GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Cards.FirstOrDefaultAsync(c => c.Id == id);
     }
 
 

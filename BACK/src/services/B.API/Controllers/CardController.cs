@@ -30,7 +30,7 @@ public class CardsController : MainController
     {
         var command = AddCardCommand.CreateFromDTO(dto);
 
-        return CustomResponse(await _mediator.Send(command));
+        return CustomResponse(await _mediator.Send(command), 201);
     }
 
 
@@ -39,7 +39,7 @@ public class CardsController : MainController
     {
         var command = UpdateCardCommand.CreateFromDTO(dto, id);
 
-        return CustomResponse(await _mediator.Send(command));
+        return CustomResponse(await _mediator.Send(command), statusCodesBadRequestAlternative: 404);
     }
 
     [HttpDelete("{id:Guid}")]
@@ -47,7 +47,7 @@ public class CardsController : MainController
     {
         var command = DeleteCardCommand.Create(id);
 
-        return CustomResponse(await _mediator.Send(command));
+        return CustomResponse(await _mediator.Send(command), statusCodesBadRequestAlternative: 404);
     }
 }
 

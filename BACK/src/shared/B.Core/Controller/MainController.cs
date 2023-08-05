@@ -1,6 +1,8 @@
-﻿using B.Core.Communication;
+﻿using System.Net;
+using B.Core.Communication;
 using B.Core.Messages;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -14,17 +16,16 @@ public abstract class MainController : ControllerBase
 {
     protected ICollection<string> Errors = new List<string>();
 
-    protected ActionResult CustomResponse(object? result = null)
+    protected ActionResult CustomResponse(object? result = null, int statusCodesOkAlternative = 0, int statusCodesBadRequestAlternative = 0, bool useAlternativeError = false)
     {
         if (ValidOperation())
         {
-            return Ok(result);
+            return statusCodesOkAlternative is 0 ? Ok(result) : StatusCode(statusCodesOkAlternative, result);
         }
 
-        return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-    {
-        { "Messages", Errors.ToArray() }
-    }));
+        var ValidationProblemDetails = new ValidationProblemDetails(new Dictionary<string, string[]> { { "Messages", Errors.ToArray() } });
+
+        return useAlternativeError ? StatusCode(statusCodesBadRequestAlternative, ValidationProblemDetails) : BadRequest(ValidationProblemDetails);
     }
 
     protected ActionResult CustomResponse(ModelStateDictionary modelState)
@@ -48,12 +49,12 @@ public abstract class MainController : ControllerBase
         return CustomResponse();
     }
 
-    protected ActionResult CustomResponse<T>(CommandResponse<T> commandResponse)
+    protected ActionResult CustomResponse<T>(CommandResponse<T> commandResponse, int statusCodesOkAlternative = 0, int statusCodesBadRequestAlternative = 0)
     {
         var errors = commandResponse?.ValidationResult?.Errors ?? null;
 
         if (errors is null)
-            return CustomResponse(commandResponse.Response);
+            return CustomResponse(commandResponse.Response, statusCodesOkAlternative, statusCodesBadRequestAlternative, commandResponse.AlternativeError);
 
 
         foreach (var error in errors)
@@ -61,7 +62,7 @@ public abstract class MainController : ControllerBase
             AddErrorToStack(error.ErrorMessage);
         }
 
-        return CustomResponse(commandResponse.Response);
+        return CustomResponse(commandResponse.Response, statusCodesOkAlternative, statusCodesBadRequestAlternative, commandResponse.AlternativeError);
     }
 
     protected ActionResult CustomResponse(ResponseResult responseResult)

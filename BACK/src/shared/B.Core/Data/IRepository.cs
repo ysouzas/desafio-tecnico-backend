@@ -12,5 +12,5 @@ public interface IRepository<T> : IDisposable
 
     Task Delete(T card);
 
-    Task<T> Update(T card);
+    T Update(T card);
 }
