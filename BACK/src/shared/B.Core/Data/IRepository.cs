@@ -4,13 +4,13 @@ public interface IRepository<T> : IDisposable
 {
     IUnitOfWork UnitOfWork { get; }
 
-    Task Add(T player);
+    Task Add(T card);
 
-    Task<IEnumerable<T>> GetAll();
+    Task<ICollection<T>> GetAll();
 
     Task<T> GetById(Guid id);
 
-    Task Delete(T player);
+    Task Delete(T card);
 
-    Task<T> Update(T player);
+    Task<T> Update(T card);
 }

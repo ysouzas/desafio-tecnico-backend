@@ -16,17 +16,17 @@ public class CardRepository : ICardRepository
 
     public IUnitOfWork UnitOfWork => _context;
 
-    public async Task<IEnumerable<Card>> GetAll()
+    public async Task<ICollection<Card>> GetAll()
     {
         return await _context.Cards.AsNoTracking().ToListAsync();
     }
 
-    public Task Add(Card player)
+    public async Task Add(Card card)
     {
-        throw new NotImplementedException();
+        await _context.Cards.AddAsync(card);
     }
 
-    public Task Delete(Card player)
+    public Task Delete(Card card)
     {
         throw new NotImplementedException();
     }
@@ -36,7 +36,7 @@ public class CardRepository : ICardRepository
         throw new NotImplementedException();
     }
 
-    public Task<Card> Update(Card player)
+    public Task<Card> Update(Card card)
     {
         throw new NotImplementedException();
     }
