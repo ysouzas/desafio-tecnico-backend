@@ -9,3 +9,11 @@ services:
       - '${SQL_SERVER_PORT}:1433'
     volumes:
       - ./DATABASE:/var/opt/mssql/data
+  frontend:
+    build:
+      context: FRONT
+      dockerfile: Dockerfile
+    ports:
+      - '3000:80'
+    depends_on:
+      - sqlserver
