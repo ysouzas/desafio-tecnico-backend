@@ -3,10 +3,9 @@ using B.API.Application.Mediator.Queries;
 using B.API.DTOs;
 using B.Core.Controller;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using B.API.Infrastructure.Filters;
 
 namespace B.API.Controllers;
 

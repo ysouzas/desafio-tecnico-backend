@@ -19,8 +19,8 @@ public class GenerateTokenCommand : CommandWithResponse<string>
     {
         return new GenerateTokenCommand()
         {
-            Password = dto.Login,
-            Username = dto.Senha,
+            Password = dto.Senha,
+            Username = dto.Login,
         };
     }
 

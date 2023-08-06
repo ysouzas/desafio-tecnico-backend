@@ -1,4 +1,5 @@
 ﻿using B.API.Data;
+using B.API.Infrastructure.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace B.API.Configuration;
@@ -10,7 +11,10 @@ public static class ApiConfig
         services.AddInfrastructure(configuration);
         services.AddDbContext<ApiContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddControllers();
+        services.AddControllers(options =>
+        {
+            options.Filters.Add(new LogFilterAttribute());
+        });
 
         services.AddCors(options =>
         {
