@@ -9,7 +9,7 @@ public static class ApiConfig
     public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddInfrastructure(configuration);
-        services.AddDbContext<ApiContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        services.AddDatabase(configuration);
 
         services.AddControllers(options =>
         {
@@ -47,6 +47,7 @@ public static class ApiConfig
         app.UseAuthorization();
 
         app.MapControllers();
+        app.AddMigrations();
     }
 
 }
