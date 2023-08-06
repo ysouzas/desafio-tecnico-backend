@@ -5,10 +5,11 @@ namespace B.API.Configuration;
 
 public static class ApiConfig
 {
-
     public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddInfrastructure(configuration);
         services.AddDbContext<ApiContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
         services.AddControllers();
 
         services.AddCors(options =>
@@ -23,6 +24,8 @@ public static class ApiConfig
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        services.AddJWTAuthentication(configuration);
     }
 
     public static void UseApiConfiguration(this WebApplication app, IWebHostEnvironment env)

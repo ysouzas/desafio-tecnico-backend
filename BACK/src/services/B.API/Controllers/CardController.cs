@@ -3,12 +3,15 @@ using B.API.Application.Mediator.Queries;
 using B.API.DTOs;
 using B.Core.Controller;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace B.API.Controllers;
 
 [Route("Cards")]
+[Authorize]
 public class CardsController : MainController
 {
     private readonly IMediator _mediator;
