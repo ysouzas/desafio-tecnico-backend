@@ -16,6 +16,7 @@ Crie um arquivo .env, com os seguintes dados
 SQL_SERVER_PORT=...
 SA_PASSWORD=...
 FRONTEND_PORT=...
+```
 
 Na raiz do projeto rode o comando
 
@@ -85,7 +86,3 @@ Esta seção contém as configurações do administrador da aplicação. Aqui es
 
 - `Login`: Nome do usuário .
 - `Senha`: Senha do usuário.
-
-Lembre-se de que este arquivo contém informações sensíveis, como senhas e chaves secretas. Mantenha-o protegido e não o compartilhe publicamente, principalmente em repositórios de código aberto.
-
-Para maiores informações sobre as configurações específicas da aplicação, consulte a documentação ou os responsáveis pelo desenvolvimento do projeto.
