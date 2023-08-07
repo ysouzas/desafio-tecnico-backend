@@ -10,11 +10,18 @@ O propósito desse desafio é a criação de uma API que fará a persistência d
 
 ## Rodando o Frontend e Database
 
+Crie um arquivo .env, com os seguintes dados
+
+````plaintext
+SQL_SERVER_PORT=...
+SA_PASSWORD=...
+FRONTEND_PORT=...
+
 Na raiz do projeto rode o comando
 
 ```console
 > docker-compose up
-```
+````
 
 ## Rodando o Backend
 
@@ -46,8 +53,6 @@ crie um arquivo chamado appsettings.json com essa estrutura:
   }
 }
 ```
-
-## Logging
 
 ## Logging
 
