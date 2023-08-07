@@ -12,7 +12,7 @@ O propósito desse desafio é a criação de uma API que fará a persistência d
 
 Crie um arquivo .env, com os seguintes dados
 
-````plaintext
+```plaintext
 SQL_SERVER_PORT=...
 SA_PASSWORD=...
 FRONTEND_PORT=...
@@ -22,7 +22,7 @@ Na raiz do projeto rode o comando
 
 ```console
 > docker-compose up
-````
+```
 
 ## Rodando o Backend
 
